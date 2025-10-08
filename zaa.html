@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abg kaban di hati, abg ocis, adek purba🥰</title>
+  <style>
+    :root {
+      --bg1: #F0DDE1;
+      --bg2: #C9E7F2;
+      --bg3: #C4DAD2;
+      --accent: #9ED2C6;
+      --text: #2c2c2c;
+      --muted: #6b6b6b;
+      font-family: "Poppins", system-ui, sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .container {
+      width: 100%;
+      max-width: 950px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+      transition: 0.5s;
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    p.lead {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover { transform: scale(1.05); background: #8ac1b7; }
+    .section { display: none; animation: fadeIn 0.7s ease; }
+    .active { display: block; }
+    .names { margin-top: 15px; }
+    .name-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+      margin-bottom: 6px;
+      border: none;
+      background: rgba(255,255,255,0.4);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .name-btn:hover { background: rgba(255,255,255,0.7); }
+    .profile {
+      background: white;
+      padding: 15px;
+      margin-top: 12px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      display: none;
+    }
+    .profile.active { display: block; }
+    .avatar {
+      width: 70px; height: 70px;
+      border-radius: 14px;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: bold; font-size: 20px;
+      margin-right: 12px;
+    }
+    .profile-head { display: flex; align-items: center; }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .gallery img:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    .nav-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 25px;
+    }
+    .nav-btn {
+      padding: 10px 20px;
+      border-radius: 14px;
+      background: linear-gradient(90deg,#9ED2C6,#A6C8E3);
+      color: white;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .nav-btn:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section id="beranda" class="section active">
+      <h1>Abg kaban di hati, abg ocis, adek purba🥰</h1>
+      <p class="lead">Komunitas penuh tawa dan kehangatan — kenali anggota kami!</p>
+      <button id="masukBtn" class="btn">Masuk</button>
+      <div class="names" id="namesArea"></div>
+      <div class="profiles" id="profiles"></div>
+
+      <div class="nav-btns">
+        <button class="nav-btn" onclick="showSection('galeri')">🌸 Lihat Galeri Kami 🌸</button>
+      </div>
+
+      <footer>© 2025 Abg kaban di hati — Dibuat dengan 💙 pastel vibes</footer>
+    </section>
+
+    <section id="galeri" class="section">
+      <h1>Galeri Komunitas 💖</h1>
+      <div class="gallery">
+        <img src="foto 1.jpg" alt="Foto kegiatan 1">
+        <img src="foto2.jpg" alt="Foto kegiatan 2">
+        <img src="foto3.jpg" alt="Foto kegiatan 3">
+        <img src="foto4.jpg" alt="Foto kegiatan 4">
+        <img src="foto5.jpg" alt="Foto kegiatan 5">
+      </div>
+
+      <div class="nav-btns">
+        <button class="nav-btn" onclick="showSection('beranda')">⬅️ Kembali ke Profil</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const anggota = [
+      {id:'alexa',name:'Alexa',nick:'Lex',fullname:'Alexa Artana Gurning',ttl:'Medan, 30 Maret 2010',alamat:'Sungall',univ:'Universitas Indonesia',cita:'Pacar Bg Mayer',bio:'Mayer Christoper Sinambela',hobbies:['Makan es krim','Nonton drama','Ngobrol bareng']},
+      {id:'carenina',name:'Carenina',nick:'Pagit',fullname:'Carenina Aurelly Tarigan',ttl:'Medan, 10 Oktober 2010',alamat:'Padang Bulan',univ:'UI Hukum / PKN STAN',cita:'Menjadi jodoh Jaehyun',bio:'Yaachel Kaban',hobbies:['Menyanyi','Dance','Baca novel']},
+      {id:'nicholas',name:'Nicholas',nick:'Nic',fullname:'Nicholas Jeferson Ritonga',ttl:'Medan, 19 Maret 2010',alamat:'DP Gais',univ:'Stanford University',cita:'Dokter',bio:'Rivka Michelle Napitupulu',hobbies:['Olahraga','Main game','Masak']},
+      {id:'oryza',name:'Oryza',nick:'Ory',fullname:'Oryza Pranantha Ginting',ttl:'Medan, 26 April 2010',alamat:'Delta',univ:'Institut Teknologi Bandung',cita:'Jek jek boypren',bio:'Jacquelyn Claudia Purba',hobbies:['Desain web','Fotografi','Hangout']}
+    ];
+
+    const masukBtn = document.getElementById('masukBtn');
+    const namesArea = document.getElementById('namesArea');
+    const profilesArea = document.getElementById('profiles');
+
+    masukBtn.addEventListener('click', () => {
+      if(namesArea.children.length === 0) {
+        anggota.forEach(a => {
+          const btn = document.createElement('button');
+          btn.className = 'name-btn';
+          btn.textContent = `${a.name} (${a.nick})`;
+          btn.addEventListener('click', () => showProfile(a.id));
+          namesArea.appendChild(btn);
+        });
+      }
+      if(profilesArea.children.length === 0) {
+        anggota.forEach(a => {
+          const div = document.createElement('div');
+          div.className = 'profile';
+          div.id = 'profile-' + a.id;
+          div.innerHTML = `
+            <div class="profile-head">
+              <div class="avatar">${a.name.charAt(0)}</div>
+              <div>
+                <div style="font-weight:700">${a.name} <span style="color:var(--muted)">— ${a.nick}</span></div>
+                <div style="font-size:13px;color:var(--muted)">${a.bio}</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;color:var(--muted)">
+              <strong>Nama Lengkap:</strong> ${a.fullname}<br>
+              <strong>Tempat, Tanggal Lahir:</strong> ${a.ttl}<br>
+              <strong>Alamat:</strong> ${a.alamat}<br>
+              <strong>Universitas Impian:</strong> ${a.univ}<br>
+              <strong>Cita-cita:</strong> ${a.cita}<br>
+              <strong>Hobi:</strong> ${a.hobbies.join(', ')}
+            </div>`;
+          profilesArea.appendChild(div);
+        });
+      }
+    });
+
+    function showProfile(id){
+      document.querySelectorAll('.profile').forEach(p => p.classList.remove('active'));
+      document.getElementById('profile-' + id).classList.add('active');
+    }
+
+    function showSection(id){
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
