@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abg kaban di hati, abg ocis, adek purba🥰 — Profil Komunitas</title>
+  <style>
+    :root{
+      --bg: #F0DDE1; /* pastel pink gelap */
+      --card: #E8E1F0; /* pastel ungu lembut */
+      --accent: #C4DAD2; /* pastel hijau abu lembut */
+      --muted: #6B6B70;
+      --text: #252525;
+      --glass: rgba(255,255,255,0.4);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(135deg,var(--bg) 0%, #DADAEF 100%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .container{
+      width:100%;
+      max-width:980px;
+      background:var(--card);
+      border-radius:16px;
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(43,43,47,0.1);
+    }
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+    .logo{
+      width:84px;height:84px;border-radius:14px;
+      background:linear-gradient(135deg,#EFC4D8,#D0EAE3);
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    h1{font-size:22px;margin:0}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    .hero{display:flex;gap:24px;margin-top:18px}
+    .left{flex:1}
+    .right{width:320px}
+
+    .card{background:var(--glass);padding:18px;border-radius:12px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--accent)}
+    .btn-ghost{background:transparent;border:1px solid rgba(43,43,47,0.15)}
+
+    .names{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .name-btn{padding:10px 12px;border-radius:10px;text-align:left;border:none;cursor:pointer;background:transparent;color:var(--text)}
+    .name-btn:hover{background:rgba(0,0,0,0.07)}
+
+    .profiles{margin-top:18px;display:grid;grid-template-columns:1fr;gap:12px}
+    .profile{padding:14px;border-radius:12px;background:white;box-shadow:0 6px 18px rgba(43,43,47,0.06);display:none}
+    .profile.active{display:block}
+
+    .avatar{width:72px;height:72px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;margin-right:12px;background:var(--accent)}
+    .profile-head{display:flex;align-items:center}
+    .meta{color:var(--muted);font-size:13px}
+
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media(max-width:800px){
+      .hero{flex-direction:column}
+      .right{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="logo">💖</div>
+      <div>
+        <h1>Abg kaban di hati, abg ocis, adek purba🥰</h1>
+        <p class="lead">Komunitas hangout & penuh canda — lihat profil anggotamu di bawah</p>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="left">
+        <div class="card">
+          <h3>Selamat datang!</h3>
+          <p class="meta">Tekan tombol <strong>Masuk</strong> untuk melihat daftar anggota utama.</p>
+          <div style="margin-top:12px">
+            <button id="masukBtn" class="btn btn-primary">Masuk</button>
+            <button id="resetBtn" class="btn btn-ghost" style="margin-left:8px">Tutup semua</button>
+          </div>
+
+          <div id="namesArea" class="names" aria-live="polite"></div>
+        </div>
+
+        <div class="profiles" id="profiles"></div>
+      </div>
+
+      <aside class="right">
+        <div class="card">
+          <h4>Tentang Komunitas</h4>
+          <p class="meta">Komunitas santai untuk ngobrol, ngerjain tugas bareng, polaroid. CEES KENTAL.</p>
+          <hr style="margin:12px 0;border:none;border-top:1px dashed rgba(0,0,0,0.15)" />
+          <p class="meta">
+            Proverbs 17:17 — “A friend loves at all times, and a brother is born for a time of adversity.”
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Dibuat dengan ❤️ untuk "Abg kaban di hati, abg ocis, adek purba🥰" — klik nama untuk melihat profil.
+    </footer>
+  </div>
+
+  <script>
+    const anggota = [
+      {
+        id:'alexa',
+        name:'Alexa',
+        nick:'Lex',
+        fullname:'Alexa Artana Gurning',
+        ttl:'Medan, 30 Maret 2010',
+        alamat:'SUNGALLLL',
+        univ:'Universitas Indonesia',
+        cita:'Pacar Bg Mayer',
+        bio:'Mayer Christoper Sinambela',
+        hobbies:['Makan es krim','Nonton drama','Ngobrol bareng']
+      },
+      {
+        id:'carenina',
+        name:'Carenina',
+        nick:'Pagit',
+        fullname:'Carenina Aurelly Tarigan',
+        ttl:'Medan, 10 Oktober 2010',
+        alamat:'Padang Bulan PRIDE',
+        univ:'UI HUKUM & PKN STAN',
+        cita:'Menjadi jodoh Jaehyun',
+        bio:'Yaachel Kaban',
+        hobbies:['Menyanyi','Dance','Baca novel']
+      },
+      {
+        id:'nicholas',
+        name:'Nicholas',
+        nick:'Nic',
+        fullname:'Nicholas Jeferson Ritonga',
+        ttl:'Medan, 19 Maret 2010',
+        alamat:'DP GAISS',
+        univ:'Stanford University',
+        cita:'Dokter',
+        bio:'Rivka Michelle Napitupulu',
+        hobbies:['Olahraga','Main game','Masak']
+      },
+      {
+        id:'oryza',
+        name:'Oryza',
+        nick:'Ory',
+        fullname:'Oryza Pranantha Ginting',
+        ttl:'Medan, 26 April 2010',
+        alamat:'DELTA',
+        univ:'Institut Teknologi Bandung',
+        cita:'Jek jek boypren',
+        bio:'Jacquelyn Claudia Purba',
+        hobbies:['Desain web','Fotografi','Hangout']
+      }
+    ];
+
+    const masukBtn = document.getElementById('masukBtn');
+    const namesArea = document.getElementById('namesArea');
+    const profilesArea = document.getElementById('profiles');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function createNameButtons(){
+      namesArea.innerHTML = '';
+      anggota.forEach(a => {
+        const b = document.createElement('button');
+        b.className = 'name-btn';
+        b.textContent = a.name + ' ' + (a.nick?`(${a.nick})`: '');
+        b.setAttribute('data-id', a.id);
+        b.addEventListener('click', () => showProfile(a.id));
+        namesArea.appendChild(b);
+      });
+    }
+
+    function createProfiles(){
+      profilesArea.innerHTML = '';
+      anggota.forEach(a => {
+        const div = document.createElement('div');
+        div.className = 'profile';
+        div.id = 'profile-' + a.id;
+        div.innerHTML = `
+          <div class="profile-head">
+            <div class="avatar">${a.name.charAt(0)}</div>
+            <div>
+              <div style="font-weight:700;font-size:16px">${a.name} <span style="color:var(--muted);font-weight:500;font-size:13px"> — ${a.nick}</span></div>
+              <div class="meta">${a.bio}</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;color:var(--muted)">
+            <strong>Nama Lengkap:</strong> ${a.fullname}<br>
+            <strong>Tempat, Tanggal Lahir:</strong> ${a.ttl}<br>
+            <strong>Alamat:</strong> ${a.alamat}<br>
+            <strong>Universitas Impian:</strong> ${a.univ}<br>
+            <strong>Cita-cita:</strong> ${a.cita}<br>
+            <strong>Hobi:</strong> ${a.hobbies.join(', ')}
+          </div>
+        `;
+        profilesArea.appendChild(div);
+      });
+    }
+
+    function showProfile(id){
+      document.querySelectorAll('.profile').forEach(p => p.classList.remove('active'));
+      const p = document.getElementById('profile-' + id);
+      if(p){
+        p.classList.add('active');
+        p.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    }
+
+    masukBtn.addEventListener('click', () => {
+      if(namesArea.children.length === 0) createNameButtons();
+      if(profilesArea.children.length === 0) createProfiles();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      namesArea.innerHTML = '';
+      document.querySelectorAll('.profile').forEach(p => p.classList.remove('active'));
+    });
+  </script>
+</body>
+</html>
