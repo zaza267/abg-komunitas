@@ -121,7 +121,9 @@
     }
     .gallery img:hover { transform: scale(1.05); }
     .nav-btn {
-      padding: 10px 20px;
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 28px;
       border-radius: 14px;
       background: linear-gradient(90deg,#9ED2C6,#A6C8E3);
       color: white;
@@ -130,7 +132,6 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: 0.3s;
-      margin-top: 25px;
     }
     .nav-btn:hover { transform: scale(1.05); }
     .verse {
@@ -211,13 +212,13 @@
   </style>
 </head>
 <body>
-  <audio id="bgMusic" src="Kahitna - Engga Ngerti (Official Music Video).mp3" autoplay loop></audio>
+  <audio id="bgMusic" src="Kahitna - Engga Ngerti (Official Music Video).mp3" loop></audio>
 
   <div class="container">
     <div class="mute-toggle">
       🔊
       <label class="switch">
-        <input type="checkbox" id="muteSwitch" checked>
+        <input type="checkbox" id="muteSwitch">
         <span class="slider"></span>
       </label>
     </div>
@@ -260,8 +261,12 @@
   <script>
     const audio = document.getElementById("bgMusic");
     const muteSwitch = document.getElementById("muteSwitch");
+    audio.muted = true; // tidak autoplay dengan suara
+
     muteSwitch.addEventListener("change", () => {
       audio.muted = !muteSwitch.checked;
+      if (muteSwitch.checked) audio.play();
+      else audio.pause();
     });
 
     const anggota = [
