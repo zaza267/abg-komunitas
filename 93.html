@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sembilan-Tiga Angkatan 19</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+
+    body {
+      background: linear-gradient(135deg, pink, lightblue, lightgreen);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: float 15s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(1); opacity: 0; }
+      50% { opacity: 0.7; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-shadow: 0 0 20px rgba(255,255,255,0.8);
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff8da1; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #7dd3fc; }
+    }
+    .hero p { margin-top: 15px; font-size: 1rem; }
+    .socials { margin-top: 10px; font-size: 0.9rem; }
+
+    /* Scroll icon */
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      font-size: 4rem; /* lebih besar */
+      color: white;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      animation: bounce 1.5s infinite;
+      cursor: pointer;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(12px); }
+    }
+
+    /* Daftar nama */
+    .names-section {
+      min-height: 100vh;
+      padding: 60px 20px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(6px);
+    }
+    .names-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .names-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .name-card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .name-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    /* Galeri */
+    .gallery-section {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fbcfe8, #a5f3fc, #bbf7d0);
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .gallery-section h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+      z-index: 99;
+    }
+    .lightbox.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    /* Modal biodata */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .modal.active { visibility: visible; opacity: 1; }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+    .close-btn {
+      margin-top: 20px;
+      padding: 8px 15px;
+      border: none;
+      background: #ff8da1;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Terima Kasih */
+    .thanks {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+      background: linear-gradient(135deg, #a5f3fc, #fbcfe8, #bbf7d0);
+    }
+    .thanks h2 { font-size: 2rem; margin-bottom: 15px; }
+    .thanks p { font-size: 1.1rem; line-height: 1.6; }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: rgba(0,0,0,0.1);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Balon -->
+  <div class="bubble" style="width:60px; height:60px; left:10%; animation-duration: 18s;"></div>
+  <div class="bubble" style="width:40px; height:40px; left:30%; animation-duration: 25s;"></div>
+  <div class="bubble" style="width:80px; height:80px; left:50%; animation-duration: 20s;"></div>
+  <div class="bubble" style="width:30px; height:30px; left:70%; animation-duration: 22s;"></div>
+  <div class="bubble" style="width:50px; height:50px; left:90%; animation-duration: 17s;"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Sembilan-Tiga</h1>
+    <p>Angkatan 19 - SMP St. Yoseph Pemuda Medan</p>
+    <p>Alamat: Jl. Pemuda No.3A, A U R, Kec. Medan Maimun, Kota Medan, Sumatera Utara 20212</p>
+    <div class="socials">IG: @93.biyantiga | @stjosephjhs | @osissanyos</div>
+    <div class="scroll-down" onclick="document.getElementById('names').scrollIntoView({behavior:'smooth'})">⬇</div>
+  </section>
+
+  <!-- Daftar Nama -->
+  <section class="names-section" id="names">
+    <h2>Daftar Nama Angkatan</h2>
+    <div class="names-list" id="namesList"></div>
+  </section>
+
+  <!-- Galeri -->
+  <section class="gallery-section" id="gallery">
+    <h2>Galeri Kenangan</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="931.jpg" alt="Foto 1"></div>
+      <div class="gallery-item"><img src="932.jpg" alt="Foto 2"></div>
+      <div class="gallery-item"><img src="933.jpg" alt="Foto 3"></div>
+      <div class="gallery-item"><img src="934.jpg" alt="Foto 4"></div>
+      <div class="gallery-item"><img src="935.jpg" alt="Foto 5"></div>
+      <div class="gallery-item"><img src="936.jpg" alt="Foto 4"></div>
+      <div class="gallery-item"><img src="937.jpg" alt="Foto 4"></div>
+      <div class="gallery-item"><img src="938.jpg" alt="Foto 4"></div>
+      <div class="gallery-item"><img src="939.jpg" alt="Foto 4"></div>
+      <div class="gallery-item"><img src="9310.jpg" alt="Foto 4"></div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="preview">
+  </div>
+
+  <!-- Terima Kasih -->
+  <section class="thanks" id="thanks">
+    <div>
+      <h2>Terima Kasih & Sampai Jumpa</h2>
+      <p>
+        Terima kasih atas semua kebersamaan, tawa, dan cerita indah selama tiga tahun di masa putih biru ini.  
+        Semoga persahabatan dan kenangan ini tetap hidup di hati kita meski langkah membawa kita ke arah yang berbeda.  
+        Sampai jumpa di masa depan dengan cerita baru, semangat baru, dan harapan yang lebih besar.  <b>Sembilan-Tiga</b>, selamanya akan tetap istimewa.
+      </p>
+    </div>
+  </section>
+
+  <!-- Modal Biodata -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3 id="modalName"></h3>
+      <p>Biodata lengkap akan ditampilkan di sini sesuai foto/dokumen.</p>
+      <button class="close-btn" onclick="closeModal()">Back</button>
+    </div>
+  </div>
+
+  <footer>© 2025 Sembilan-Tiga Angkatan 19 | SMP St. Yoseph Pemuda Medan</footer>
+
+  <script>
+    const names = [
+      "Adelyn Naquita Rajagukguk","Andre Patria Darwin Pardede","Angelique Shalom Aritonang",
+      "Arsenius Morris Hadorassa Situmorang","Chalysta Brebina Ginting","Chiara Engrasia Bangun",
+      "Christon Marsaur Hutagaol","Diva Aila Hutasoit","Elsi Maia Sari Siregar",
+      "Filius Gregory Ethan Sianturi","Gavrilla Indar Ginting","Glendaniel Simanulang",
+      "Graccyella Martgehaan Siahaan","Ignatius Hubert Manik","Jessica Cristin Sembiring",
+      "Jorell Ezechiel Barus","Joshua Situmenang","Kevin J. A Ginting",
+      "Klarissa P. M Simanungkalit","Marvel Fransesco J Samosir","Michel Carol M Siahaan",
+      "Nadhyne Sheren A Girsang","Natamaya I G Manurung","Oryza P Ginting",
+      "Prysilla Q Togatorop","Pascal Boromeus F Tampubolon","Reynata Wilona Pasaribu",
+      "Samuel Tamaro Marpaung","Sebastian Isaac Simanjuntak","Sonia Ivena E Damanik",
+      "Tara Valerie R Meilala","Yolanda C D Silalahi"
+    ];
+
+    const listContainer = document.getElementById("namesList");
+    names.forEach(name => {
+      const div = document.createElement("div");
+      div.className = "name-card";
+      div.innerText = name;
+      div.onclick = () => openModal(name);
+      listContainer.appendChild(div);
+    });
+
+    function openModal(name) {
+      document.getElementById("modalName").innerText = name;
+      document.getElementById("modal").classList.add("active");
+    }
+    function closeModal() {
+      document.getElementById("modal").classList.remove("active");
+    }
+
+    // Lightbox gallery
+    const lightbox = document.getElementById("lightbox");
+    const galleryImages = document.querySelectorAll(".gallery-item img");
+    galleryImages.forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.classList.add("active");
+        lightbox.querySelector("img").src = img.src;
+      });
+    });
+    lightbox.addEventListener("click", () => lightbox.classList.remove("active"));
+  </script>
+</body>
+</html>
