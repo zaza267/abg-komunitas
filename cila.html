@@ -37,6 +37,7 @@
       padding: 30px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       backdrop-filter: blur(8px);
+      position: relative;
     }
     h1 {
       text-align: center;
@@ -117,6 +118,7 @@
       border-radius: 14px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       transition: 0.3s;
+      cursor: pointer;
     }
     .gallery img:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .nav-btns {
@@ -147,10 +149,80 @@
       padding: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
+
+    /* 🎵 Musik Player */
+    .music-player {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      padding: 5px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .music-player button {
+      background: linear-gradient(90deg,#9ED2C6,#A6C8E3);
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .music-player span {
+      font-weight: 600;
+      color: #4b4b4b;
+      font-size: 13px;
+    }
+
+    /* 🔍 Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    }
+    .close-btn {
+      position: absolute;
+      top: 25px; right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      background: none;
+      border: none;
+    }
+    .close-btn:hover {
+      color: #ffaaaa;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+
+    <!-- 🎵 Pemutar Musik -->
+    <div class="music-player">
+      <button id="musicBtn">▶️</button>
+      <span id="musicStatus">Musik: Mati</span>
+      <audio id="bgMusic" loop>
+        <source src="Kahitna - Engga Ngerti (Official Music Video).mp3" type="audio/mp3">
+      </audio>
+    </div>
+
     <section id="beranda" class="section active">
       <h1>Abg kaban di hati, abg ocis, adek purba🥰</h1>
       <p class="lead">Komunitas penuh tawa dan kehangatan — kenali anggota kami!</p>
@@ -168,7 +240,7 @@
         <button class="nav-btn" onclick="showSection('galeri')">🌸 Lihat Galeri Kami 🌸</button>
       </div>
 
-      <footer>© 2025 Oryza Pranantha Ginting — All Rights Reserved</footer>
+      <footer>© 2025 Oryza Ginting — All Rights Reserved</footer>
     </section>
 
     <section id="galeri" class="section">
@@ -179,16 +251,19 @@
         <img src="foto 3.jpg" alt="Foto kegiatan 3">
         <img src="foto 4.jpg" alt="Foto kegiatan 4">
         <img src="foto 5.jpg" alt="Foto kegiatan 5">
-        <video controls width="600">
-  <source src="video alexa.mp4" type="video/mp4">
-  Browser kamu tidak mendukung video.
-</video>
+        <img src="kertas biodata.jpg" alt="Foto kegiatan 6">
       </div>
 
       <div class="nav-btns">
         <button class="nav-btn" onclick="showSection('beranda')">⬅️ Kembali ke Profil</button>
       </div>
     </section>
+  </div>
+
+  <!-- 💡 Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="close-btn" id="closeLightbox">×</button>
+    <img id="lightboxImg" src="" alt="Foto besar">
   </div>
 
   <script>
@@ -249,8 +324,48 @@
       document.getElementById(id).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // 🎵 Musik
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicStatus = document.getElementById('musicStatus');
+    let playing = false;
+    musicBtn.addEventListener('click', () => {
+      if (!playing) {
+        bgMusic.play();
+        musicStatus.textContent = "Musik: Hidup 🎶";
+        musicBtn.textContent = "⏸️";
+      } else {
+        bgMusic.pause();
+        musicStatus.textContent = "Musik: Mati";
+        musicBtn.textContent = "▶️";
+      }
+      playing = !playing;
+    });
+
+    // 🔍 Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('closeLightbox');
+
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+      });
+    });
+
+    closeLightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+    });
+
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+      }
+    });
   </script>
 </body>
 </html>
-
-
